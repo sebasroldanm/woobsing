@@ -34,7 +34,7 @@ class TwoFAController extends Controller
 
         $find = UserEmailCode::where('user_id', auth()->user()->id)
             ->where('code', $request->code)
-            ->where('updated_at', '>=', now()->subMinutes(1))
+            ->where('updated_at', '>=', now()->subMinutes(30))
             ->first();
         // dd(auth()->user()->id, $request->code);
         if (!is_null($find)) {
@@ -42,7 +42,7 @@ class TwoFAController extends Controller
             return redirect('/dashboard');
         }
 
-        return back()->with('error', 'Ingresó el código incorrecto.');
+        return back()->with('error', 'Ingresó el código incorrecto o caduco su vigencia.');
     }
     /**
      * Write code on Method

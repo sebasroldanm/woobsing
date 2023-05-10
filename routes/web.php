@@ -24,7 +24,8 @@ Route::get('/sesiones', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $session = (session()->has('origin_sesion')) ? 'Existe session almacenada' : 'No hay session almacenada';
+    return view('dashboard', compact('session'));
 })->middleware(['auth', 'verified', 'checkUserRole', '2fa'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
