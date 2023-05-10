@@ -30,6 +30,8 @@ class UpdateUserLogin
         $user->last_online = now();
         $user->save();
 
+        session()->put('origin_sesion', true);
+
         if ($user->role_id = 1 && $ip == '127.0.0.1') {
             DB::table('loging_log')->insert([
                 'id_user' => $user->id,
